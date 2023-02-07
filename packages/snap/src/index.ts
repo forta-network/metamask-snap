@@ -15,12 +15,18 @@ interface AddressResponse {
 
 const getScams = async (): Promise<AddressResponse> => {
   const url = `https://api.forta.network/address-risk/addresses?labels=scam`;
-  const resp = await fetch(url, { headers: { application: 'metamask-snap' } });
+  const resp = await fetch(url);
   return (await resp.json()) as AddressResponse;
 };
 
 function anyContains(haystacks: string[], needle: string): Boolean {
+  if (!needle) {
+    return false;
+  }
   for (let haystack of haystacks) {
+    if (!haystack) {
+      continue;
+    }
     const hs = haystack.replace(/0x/g, '').toLowerCase();
     const nd = needle.replace(/0x/g, '').toLowerCase();
     if (hs.indexOf(nd) > 0) {
@@ -38,8 +44,12 @@ export const onTransaction: OnTransactionHandler = async ({
   var insights: { [key: string]: any } = {};
 
   try {
-    const toAddress = (transaction.to as string).toLowerCase();
-    const data = (transaction.data as string).toLowerCase();
+    const toAddress = transaction.to
+      ? (transaction.to as string).toLowerCase()
+      : '';
+    const data = transaction.data
+      ? (transaction.data as string).toLowerCase()
+      : '';
     const scams = await getScams();
 
     const badAddresses = [];
