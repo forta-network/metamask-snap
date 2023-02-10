@@ -29,11 +29,31 @@ function anyContains(haystacks: string[], needle: string): Boolean {
     }
     const hs = haystack.replace(/0x/g, '').toLowerCase();
     const nd = needle.replace(/0x/g, '').toLowerCase();
-    if (hs.indexOf(nd) > 0) {
+    if (hs.indexOf(nd) >= 0) {
       return true;
     }
   }
   return false;
+}
+
+function padData(data: string): string {
+  if (!data) {
+    return data;
+  }
+
+  // ensure data length-4 is evenly divisible by 32
+  const b = Buffer.from(data.replace('0x', ''), 'hex');
+  const padLevel = (b.length - 4) % 32;
+  if (padLevel == 0) {
+    return data;
+  }
+
+  // append 00 bytes
+  let suffix = '';
+  for (let i = 0; i < 32 - padLevel; i++) {
+    suffix += '00';
+  }
+  return `${data}${suffix}`;
 }
 
 export const onTransaction: OnTransactionHandler = async ({
@@ -47,9 +67,10 @@ export const onTransaction: OnTransactionHandler = async ({
     const toAddress = transaction.to
       ? (transaction.to as string).toLowerCase()
       : '';
-    const data = transaction.data
-      ? (transaction.data as string).toLowerCase()
-      : '';
+    const data = padData(
+      transaction.data ? (transaction.data as string).toLowerCase() : '',
+    );
+
     const scams = await getScams();
 
     const badAddresses = [];
