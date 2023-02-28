@@ -4,7 +4,7 @@
   "proposedName": "Forta",
   "repository": {
     "type": "git",
-    "url": "https://github.com/forta-network/metamask-snap.git"
+    "url": "https://github.com/MetaMask/template-snap-monorepo.git"
   },
   "source": {
     "shasum": "I3957Ck7zD1AbsOaPfpbeXu9ZhnRsducUZAM+fiTANM=",
