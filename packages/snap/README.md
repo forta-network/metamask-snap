@@ -1,8 +1,5 @@
-# TypeScript Example Snap
+# Forta - Metamask Snap
 
-This Snap demonstrates how to develop a Snap with TypeScript.
+This Snap calls Forta APIs to verify the safety of a transaction.
 
-## Notes
-
-- Babel is used for transpiling TypeScript to JavaScript, so when building with the CLI,
-  `transpilationMode` must be set to `localOnly` (default) or `localAndDeps`.
+This was adopted from https://github.com/MetaMask/template-snap-monorepo (see that readme)
