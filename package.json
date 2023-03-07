@@ -1,15 +1,15 @@
 {
-  "name": "@metamask/template-snap-monorepo",
+  "name": "@forta-network/metamask-snap",
   "version": "0.1.0",
   "private": true,
-  "description": "",
-  "homepage": "https://github.com/MetaMask/template-snap-monorepo#readme",
+  "description": "Forta Snap for validating security of Transactions.",
+  "homepage": "https://forta.org",
   "bugs": {
-    "url": "https://github.com/MetaMask/template-snap-monorepo/issues"
+    "url": "https://github.com/forta-network/metamask-snap/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MetaMask/template-snap-monorepo.git"
+    "url": "https://github.com/forta-network/metamask-snap.git"
   },
   "license": "(MIT-0 OR Apache-2.0)",
   "author": "",
@@ -46,8 +46,5 @@
   "packageManager": "yarn@3.2.1",
   "engines": {
     "node": ">=16.0.0"
-  },
-  "dependencies": {
-    "@metamask/snaps-cli": "^0.22.2"
   }
 }

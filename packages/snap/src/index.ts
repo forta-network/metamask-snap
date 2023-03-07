@@ -1,4 +1,6 @@
-import { OnTransactionHandler } from '@metamask/snap-types';
+import { OnTransactionHandler } from '@metamask/snaps-types';
+import { panel, text, heading } from '@metamask/snaps-ui';
+import { Json } from '@metamask/utils';
 
 const labels: { [key: string]: boolean } = {
   scam: true,
@@ -56,10 +58,23 @@ function padData(data: string): string {
   return `${data}${suffix}`;
 }
 
-export const onTransaction: OnTransactionHandler = async ({
-  transaction,
-  chainId,
+function toPanel(map: { [key: string]: any }) {
+  const result = []
+  for(let key in map) {
+    result.push(heading(key))
+    result.push(text(map[key]))
+  }
+  return panel(result)
+}
+
+export const onTransaction: OnTransactionHandler = async (args: {
+  transaction: {
+      [key: string]: Json;
+  };
+  chainId: string;
+  transactionOrigin?: string;
 }) => {
+  const {transaction, chainId, transactionOrigin} = args
   console.log(transaction);
   var insights: { [key: string]: any } = {};
 
@@ -94,14 +109,12 @@ export const onTransaction: OnTransactionHandler = async ({
       ] = `Forta detected high-risk addresses:\n${badAddresses.join('\n')}`;
     }
     return {
-      insights,
+      content: toPanel(insights)
     };
   } catch (e) {
     console.log(e);
     return {
-      insights: {
-        Error: e.message,
-      },
+      content: e.message
     };
   }
 };
