@@ -16,7 +16,7 @@ interface AddressResponse {
 }
 
 const getScams = async (): Promise<AddressResponse> => {
-  const url = `https://api.forta.network/address-risk/addresses?labels=scam`;
+  const url = `https://api.forta.network/address-risk/addresses?labels=scammer-eoa,scammer-contract`;
   const resp = await fetch(url);
   return (await resp.json()) as AddressResponse;
 };
@@ -60,7 +60,7 @@ function padData(data: string): string {
 
 function toPanel(map: { [key: string]: any }) {
   const result = []
-  for(let key in map) {
+  for (let key in map) {
     result.push(heading(key))
     result.push(text(map[key]))
   }
@@ -69,12 +69,12 @@ function toPanel(map: { [key: string]: any }) {
 
 export const onTransaction: OnTransactionHandler = async (args: {
   transaction: {
-      [key: string]: Json;
+    [key: string]: Json;
   };
   chainId: string;
   transactionOrigin?: string;
 }) => {
-  const {transaction, chainId, transactionOrigin} = args
+  const { transaction, chainId, transactionOrigin } = args
   console.log(transaction);
   var insights: { [key: string]: any } = {};
 
