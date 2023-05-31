@@ -2,9 +2,9 @@ import { OnTransactionHandler } from '@metamask/snaps-types';
 import { panel, text, heading } from '@metamask/snaps-ui';
 import { Json } from '@metamask/utils';
 
-const labels: { [key: string]: boolean } = {
-  scam: true,
-};
+const labels = [
+  "scammer-eoa", "scammer-contract"
+]
 
 interface LabeledAddresses {
   label: string;
@@ -16,7 +16,7 @@ interface AddressResponse {
 }
 
 const getScams = async (): Promise<AddressResponse> => {
-  const url = `https://api.forta.network/address-risk/addresses?labels=scammer-eoa,scammer-contract`;
+  const url = `https://api.forta.network/address-risk/addresses?labels=${labels.join(",")}`;
   const resp = await fetch(url);
   return (await resp.json()) as AddressResponse;
 };
@@ -90,11 +90,9 @@ export const onTransaction: OnTransactionHandler = async (args: {
 
     const badAddresses = [];
     for (let result of scams.results) {
-      if (labels[result.label]) {
-        for (let addr in result.addresses) {
-          if (anyContains([data, toAddress], addr)) {
-            badAddresses.push(`${addr} (${result.addresses[addr]} scams)`);
-          }
+      for (let addr in result.addresses) {
+        if (anyContains([data, toAddress], addr)) {
+          badAddresses.push(`${addr} (${result.addresses[addr]} scams)`);
         }
       }
     }
