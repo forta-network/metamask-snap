@@ -7,7 +7,7 @@
     "url": "https://github.com/forta-network/metamask-snap.git"
   },
   "source": {
-    "shasum": "/OBqz0xTBPVLldYR8SjyeMmTJOdoST0Ch/QeuUL778Y=",
+    "shasum": "giUrzkAYSEnpSsUArzTub64SgwNCklDdW8MvMOdtPtg=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
