@@ -1,7 +1,6 @@
 {
   "name": "@forta-network/metamask-snap",
   "version": "0.1.0",
-  "private": true,
   "description": "Forta Snap for validating security of Transactions.",
   "homepage": "https://forta.org",
   "bugs": {
