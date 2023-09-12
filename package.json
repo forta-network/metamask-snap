@@ -1,5 +1,5 @@
 {
-  "name": "@forta-network/metamask-snap",
+  "name": "metamask-snap",
   "version": "0.1.0",
   "description": "Forta Snap for validating security of Transactions.",
   "homepage": "https://forta.org",
